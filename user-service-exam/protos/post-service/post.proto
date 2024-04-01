@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package post;
+
+option go_package = "/post-proto";
+
+service PostService {
+    rpc CreatePost(Post) returns (Post);
+    rpc GetPostById(GetPostByIdReq) returns (GetPostByIdRes);
+    rpc GetPostsByUserId(GetPostsByUserIdReq) returns(GetPostsByUserIdRes);
+    rpc UpdatePost(UpdatePostReq) returns (UpdatePostRes);
+    rpc DeletePost(DeletePostReq) returns (DeletePostRes);
+}
+
+message Post {
+    string post_id = 1;
+    string user_id = 2;
+    string content = 3;
+    string title = 4;
+    string created_at = 5;
+    string updated_at = 6;
+    string deleted_at = 7;
+    int64 likes = 8;
+    int64 dislikes = 9;
+    int64 views = 10;
+    string media_url = 11;
+    string refresh_token = 12;
+    repeated Comment comments = 13;
+}
+
+message GetPostByIdReq {
+    string post_id = 1;
+}
+
+message GetPostByIdRes {
+    Post post = 1;
+}
+
+message GetPostsByUserIdReq {
+    string user_id = 1;
+}
+
+message GetPostsByUserIdRes {
+    repeated Post posts = 1;
+}
+
+message Comment {
+    string comment_id = 1;
+    string post_id = 2;
+    string user_id = 3;
+    string content = 4;
+}
+
+message UpdatePostReq {
+    string post_id = 1;
+    string content = 2;
+}
+
+message UpdatePostRes {
+    bool success = 1;
+}
+
+message DeletePostReq {
+    string post_id = 1;
+}
+
+message DeletePostRes {
+    bool success = 1;
+}

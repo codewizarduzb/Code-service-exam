@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package comment;
+
+option go_package = "/comment-proto";
+
+service CommentService {
+    rpc CreateComment(Comment) returns (Comment);
+    rpc GetComment(GetCommentRequest) returns (GetCommentResponse);
+    rpc UpdateComment(UpdateCommentRequest) returns (UpdateCommentResponse);
+    rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+    rpc ListComments(ListCommentsRequest) returns (ListCommentsResponse);
+}
+
+message Comment {
+    string comment_id = 1;
+    string post_id = 2;
+    string user_id = 3;
+    string content = 4;
+}
+
+message GetCommentRequest {
+    string comment_id = 1;
+}
+
+message GetCommentResponse {
+    Comment comment = 1;
+}
+
+message UpdateCommentRequest {
+    string comment_id = 1;
+}
+
+message UpdateCommentResponse {
+    bool success = 1;
+}
+
+message DeleteCommentRequest {
+    string comment_id = 1;
+}
+
+message DeleteCommentResponse {
+    bool success = 1;
+}
+
+message ListCommentsRequest {
+    string post_id = 1;
+}
+
+message ListCommentsResponse {
+    repeated Comment comments = 1;
+}

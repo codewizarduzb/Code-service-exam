@@ -1,0 +1,667 @@
+definitions:
+  models.Comment:
+    properties:
+      comment_id:
+        type: string
+      content:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      post_id:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.CommentResponse:
+    properties:
+      comment_id:
+        type: string
+      content:
+        type: string
+      created_at:
+        type: string
+      post_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.CreateUserRequest:
+    properties:
+      bio:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+      website:
+        type: string
+    type: object
+  models.CreateUserResponse:
+    properties:
+      bio:
+        type: string
+      created_At:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+      website:
+        type: string
+    type: object
+  models.DeletePostResponse:
+    properties:
+      success:
+        type: boolean
+    type: object
+  models.DeleteUserResponse:
+    properties:
+      success:
+        type: boolean
+    type: object
+  models.Error:
+    properties:
+      message:
+        type: string
+    type: object
+  models.GetPostByIdResponse:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      content:
+        type: string
+      created_at:
+        type: string
+      dislikes:
+        type: integer
+      likes:
+        type: integer
+      media_url:
+        type: string
+      post_id:
+        type: string
+      refresh_token:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+      views:
+        type: integer
+    type: object
+  models.ListCommentsResponse:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/models.CommentResponse'
+        type: array
+    type: object
+  models.ListUsersResponse:
+    properties:
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+  models.Post:
+    properties:
+      access_token:
+        type: string
+      content:
+        type: string
+      created_at:
+        type: string
+      dislikes:
+        type: integer
+      likes:
+        type: integer
+      media_url:
+        type: string
+      post_id:
+        type: string
+      refresh_token:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+      views:
+        type: integer
+    type: object
+  models.StandardErrorModel:
+    properties:
+      error:
+        $ref: '#/definitions/models.Error'
+    type: object
+  models.UpdateCommentResponse:
+    properties:
+      success:
+        type: string
+    type: object
+  models.UpdateContentResponse:
+    properties:
+      success:
+        type: boolean
+    type: object
+  models.UpdateUserResponse:
+    properties:
+      success:
+        type: boolean
+    type: object
+  models.User:
+    properties:
+      bio:
+        type: string
+      created_At:
+        type: string
+      deleted_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+      website:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Microservices
+  title: Special for fourth exam
+  version: "1.0"
+paths:
+  /v1/createcomment:
+    post:
+      consumes:
+      - application/json
+      description: Api for creating new comment
+      parameters:
+      - default: I'm writing a comment
+        description: comment
+        in: query
+        name: comment
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CommentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: CREATE A NEW COMMENT
+      tags:
+      - comment
+  /v1/createpost:
+    post:
+      consumes:
+      - application/json
+      description: Api for creating new post
+      parameters:
+      - description: Post
+        in: body
+        name: Post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: CREATE A NEW POST
+      tags:
+      - post
+  /v1/createuser:
+    post:
+      consumes:
+      - application/json
+      description: Api for creating user
+      parameters:
+      - description: User
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: CREATE USER
+      tags:
+      - user
+  /v1/deletecomment:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting comment
+      parameters:
+      - default: a8f3a70b-6e86-4a94-8d9d-7e674f33fe39
+        description: comment_id
+        in: query
+        name: comment_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UpdateCommentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: DELETE A COMMENT
+      tags:
+      - comment
+  /v1/deletepost:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting post
+      parameters:
+      - default: bb0a3189-3e58-4f57-b7b1-8d6ac4fb326f
+        description: post_id
+        in: query
+        name: post_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeletePostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: DELETE POST BY POST_ID
+      tags:
+      - post
+  /v1/deleteuser:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting user
+      parameters:
+      - default: user3@example.com
+        description: email
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: DELETE USER BY EMAIL
+      tags:
+      - user
+  /v1/getcomment:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting comment
+      parameters:
+      - default: a5f1b10d-849b-40a8-bc18-6e1290e8bcac
+        description: comment_id
+        in: query
+        name: comment_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CommentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: GET A COMMENT
+      tags:
+      - comment
+  /v1/getpostbyid:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting one post by Id
+      parameters:
+      - default: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        description: post_id
+        in: query
+        name: post_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetPostByIdResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: GET POST BY POST_ID WITH COMMENTS
+      tags:
+      - post
+  /v1/getpostsbyuserid:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting posts by user_id
+      parameters:
+      - default: 647ac10b-58cc-4372-a567-0e02b2c3d479
+        description: user_id
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetPostByIdResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: GET POSTS BY USER_ID WITH COMMENTS
+      tags:
+      - post
+  /v1/getuser:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting user
+      parameters:
+      - default: user1@example.com
+        description: email
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: GET USER BY EMAIL
+      tags:
+      - user
+  /v1/listcomments:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting a list of comments
+      parameters:
+      - default: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        description: post_id
+        in: query
+        name: post_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListCommentsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: GET A LIST OF COMMENTS
+      tags:
+      - comment
+  /v1/listusers:
+    get:
+      consumes:
+      - application/json
+      description: Api for list of  user
+      parameters:
+      - default: "1"
+        description: page
+        in: query
+        name: page
+        required: true
+        type: string
+      - default: "10"
+        description: limit
+        in: query
+        name: limit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListUsersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: LIST USERS BY PAGE AND LIMIT
+      tags:
+      - user
+  /v1/updatecomment:
+    patch:
+      consumes:
+      - application/json
+      description: Api for updating comment
+      parameters:
+      - default: b7c221f3-81dc-4cb9-779e-7d242212e02d
+        description: comment_id
+        in: query
+        name: comment_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UpdateCommentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: UPDATE A COMMENT
+      tags:
+      - comment
+  /v1/updatepostcontent:
+    patch:
+      consumes:
+      - application/json
+      description: Api for updating post content
+      parameters:
+      - default: aa5f7cb8-ae5f-4df3-907a-6e1c4389c8b1
+        description: post_id
+        in: query
+        name: post_id
+        required: true
+        type: string
+      - default: updated content
+        description: newcontent
+        in: query
+        name: newcontent
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UpdateContentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: UPDATE POST CONTENT BY POST_ID
+      tags:
+      - post
+  /v1/updateuser:
+    patch:
+      consumes:
+      - application/json
+      description: Api for updating user
+      parameters:
+      - default: user2@example.com
+        description: email
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UpdateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandardErrorModel'
+      summary: UPDATE USER BY EMAIL
+      tags:
+      - user
+swagger: "2.0"

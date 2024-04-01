@@ -1,0 +1,22 @@
+p, unauthorized, /v1/swagger/*, GET
+p, unauthorized, /v1/login, POST
+
+p, unauthorized, /v1/createuser, POST
+p, unauthorized, /v1/getuser, GET
+p, unauthorized, /v1/listusers, GET
+p, unauthorized, /v1/updateuser, PATCH
+p, unauthorized, /v1/deleteuser, DELETE
+
+p, unauthorized, /v1/createpost, POST
+p, unauthorized, /v1/getpostbyid, GET
+p, unauthorized, /v1/getpostsbyuserid, GET
+p, unauthorized, /v1/updatepostcontent, PATCH
+p, unauthorized, /v1/deletepost, DELETE
+
+p, unauthorized, /v1/createcomment, POST
+p, unauthorized, /v1/getcomment, GET
+p, unauthorized, /v1/updatecomment, PATCH
+p, unauthorized, /v1/deletecomment, DELETE
+p, unauthorized, /v1/listcomments, GET
+
+g, string, string

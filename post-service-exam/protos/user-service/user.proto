@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "/user-proto";
+
+service UserService {
+    rpc Registrate(EmailRequest) returns(SocialUser);
+    rpc IsUnique(IsUniqueRequest) returns(IsUniqueResponse);
+    rpc Create(CreateUserRequest) returns(CreateUserResponse);
+    rpc LoginIn(LogInRequest) returns(LogInResponse);
+    rpc CreateUser(User) returns(User);
+    rpc GetUser(GetUserReq) returns(User);
+    rpc UpdateUser(UpdateUserReq) returns(UpdateUserRes);
+    rpc DeleteUser(DeleteUserReq) returns(DeleteUserRes);
+}
+
+message User {
+    string id = 1;
+    string fullname = 2;
+    string username = 3;
+    string email = 4;
+    string password = 5;
+    string position = 6;
+    string refresh_token = 7;
+}
+
+message UpdateUserReq {
+    string email = 1;
+}
+
+message UpdateUserRes {
+    bool success = 1;
+}
+
+message GetUserReq {
+    string email = 1;
+}
+
+message DeleteUserReq {
+    string email = 1;
+}
+
+message DeleteUserRes {
+    bool success = 1;
+}
+
+message LogInRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LogInResponse {
+    bool success = 1;
+}
+
+message CreateUserRequest {
+    string id = 1;
+    string fullname = 2;
+    string username = 3;
+    string email = 4;
+    string password = 5;
+    string refresh_token = 6;
+}
+
+message CreateUserResponse {
+    string id = 1;
+    string fullname = 2;
+    string username = 3;
+    string email = 4;
+    string password = 5;
+    string refresh_token = 6;
+}
+
+message IsUniqueRequest {
+    string field = 1;
+    string value = 2;
+}
+
+message IsUniqueResponse {
+    bool is_unique = 1;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message EmailRequest {
+    string email = 1;
+    string username = 2;
+    string password = 3;
+}
+
+message SocialUser {
+    string email = 1;
+    string username = 2;
+    string password = 3;
+    int64 validation_password = 4;
+}
